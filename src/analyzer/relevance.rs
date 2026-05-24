@@ -50,7 +50,7 @@ pub fn analyze(name: &str, description: &str, topics: &[String], language: &str)
     let mut tag = String::new();
     let mut forge_score = 0i32;
 
-    for (kw, label, forge_tag) in AI_KEYWORDS {
+    for (kw, label, _forge_tag) in AI_KEYWORDS {
         if combined.contains(kw) {
             matched_keywords.push(kw.to_string());
             if tag.is_empty() {
@@ -110,7 +110,7 @@ mod tests {
 
     #[test]
     fn test_non_ai_low_relevance() {
-        let r = analyze("linux", "OS kernel", &["kernel", "c"], "C");
+        let r = analyze("linux", "OS kernel", &["kernel".to_string(), "c".to_string()], "C");
         assert!(!r.is_ai_related);
     }
 }

@@ -2,7 +2,7 @@
 //!
 //! 生成带 emoji、表格、趋势图（mermaid）的可读报告
 
-use crate::analyzer::relevance::{RelevanceLevel, RelevanceResult};
+use crate::analyzer::relevance::RelevanceLevel;
 use crate::collector::github::RepoEntry;
 use crate::analyzer::relevance;
 

@@ -5,7 +5,6 @@
 //! - 趋势线：项目每日 star 历史
 
 use anyhow::Result;
-use chrono::NaiveDate;
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -45,7 +44,7 @@ pub async fn fetch_trending(period: &str, limit: usize) -> Result<Vec<RepoEntry>
         _ => "stars:>100".to_string(),
     };
 
-    let query = format!("{}&sort=stars&order=desc&per_page={}", date_filter, limit.min(25));
+    let _query = format!("{}&sort=stars&order=desc&per_page={}", date_filter, limit.min(25));
     let url = format!("https://api.github.com/search/repositories?q={}&sort=stars&order=desc&per_page={}",
         date_filter, limit.min(25));
 
@@ -56,7 +55,8 @@ pub async fn fetch_trending(period: &str, limit: usize) -> Result<Vec<RepoEntry>
 
     let resp = client.get(&url).send().await?;
     let body: serde_json::Value = resp.json().await?;
-    let items = body["items"].as_array().unwrap_or(&vec![]);
+    let empty_vec = vec![];
+    let items = body["items"].as_array().unwrap_or(&empty_vec);
 
     let repos = items.iter().map(|item| {
         RepoEntry {

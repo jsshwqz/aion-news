@@ -17,7 +17,7 @@ pub struct HNStory {
 
 /// 获取 Hacker News 当日 AI 相关热帖
 pub async fn fetch_ai_stories(days: u32) -> Result<Vec<HNStory>> {
-    let cutoff = (chrono::Local::now() - chrono::Duration::days(days as i64)).to_rfc3339();
+    let _cutoff = (chrono::Local::now() - chrono::Duration::days(days as i64)).to_rfc3339();
     let url = format!(
         "https://hn.algolia.com/api/v1/search?query=AI+OR+LLM+OR+agent+OR+Claude+OR+GPT+OR+coding&tags=story&numericFilters=created_at_i>{}&hitsPerPage=10",
         chrono::Local::now().timestamp() - days as i64 * 86400
